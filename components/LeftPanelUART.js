@@ -9,35 +9,43 @@ const LeftPanelUART = ({setCurrentModule}) => {
       xs={6}
       sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}
     >
-      <Grid container direction='column' xs={6} rowSpacing={6}>
+      <Grid container direction='column' xs={6} rowSpacing={1}>
         <Grid item>
           <ActionAreaCard
-            title='Module 1'
-            description='Info about module 1'
+            title='Voltage Glitcher'
+            description='Here we can add some description about voltage glitcher'
             setCurrentModule={setCurrentModule}
           />
         </Grid>
         <Grid item>
           <ActionAreaCard
-            title='Module 2'
-            description='Info about module 2'
+            title='Detect Baudrate'
+            description='Here we can add some description about detect baudrate'
             setCurrentModule={setCurrentModule}
           />
         </Grid>
         <Grid item>
           <ActionAreaCard
-            title='Module 3'
-            description='Info about module 3'
+            title='Check For UART Console'
+            description='Here we can add some description about console'
             setCurrentModule={setCurrentModule}
           />
         </Grid>
         <Grid item>
           <ActionAreaCard
-            title='Module 4'
-            description='Info about module 4'
+            title='Captue Boot Logs'
+            description='Here we can add some description about boot logs'
             setCurrentModule={setCurrentModule}
           />
         </Grid>
+        <Grid item>
+          <ActionAreaCard
+            title='Analyze Boot Logs'
+            description='Here we can add some description about this'
+            setCurrentModule={setCurrentModule}
+          />
+        </Grid>
+        
       </Grid>
     </Grid>
   )
