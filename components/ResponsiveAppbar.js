@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import Link from 'next/link'
 
-const pages = ['Home','SPI', 'UART','Settings']
+const pages = ['Home','SPI', 'UART','Reports','Settings']
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState()
@@ -123,14 +123,16 @@ function ResponsiveAppBar() {
             }}
           >
             {pages.map((page) => (
-                <Link href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}>
-              <Button
+              <Link
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
               >
-                {page}
-              </Button>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
               </Link>
             ))}
           </Box>
