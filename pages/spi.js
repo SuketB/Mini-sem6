@@ -1,8 +1,9 @@
+import Forms from '@/components/Forms'
 import React from 'react'
 
 const spi = () => {
   return (
-    <div>spi</div>
+    <Forms />
   )
 }
 
