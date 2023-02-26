@@ -5,11 +5,12 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { CardActionArea } from '@mui/material'
 
-export default function ActionAreaCard({title, description,setCurrentModule}) {
+export default function ActionAreaCard({title, description,setCurrentModule, openModal}) {
   return (
     <Card
       sx={{ maxWidth: 345, backgroundColor: '#1976d2',color:'#fff' }}
       onClick={() => setCurrentModule(title)}
+   
     >
       <CardActionArea>
         <CardContent>
