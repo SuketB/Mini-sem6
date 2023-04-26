@@ -58,7 +58,7 @@ const Reports = () => {
           </Grid>
           <Grid item>
             <Typography variant="h5" sx={{ mb: 2 }}>Report Text:</Typography>
-            {currentReport && <Typography>{currentReport.description}</Typography>}
+            {currentReport && <Typography sx={{ whiteSpace: 'pre-line' }}>{currentReport.description}</Typography>}
           </Grid>
           <Grid item>
             <Typography variant="h5" sx={{ mb: 2 }}>Highlighted Sentences:</Typography>
