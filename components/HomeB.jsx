@@ -32,7 +32,7 @@ const HomeB = (props) => {
 return (
    
     <div className='my-style' style={{textAlign:'center', width: '18rem', margin:'1rem'}}>
-      <Button variant="contained" onClick={handleOpen} style={{width:'inherit', height: '8rem'}}>{props.nam}</Button>
+      <Button variant="contained" onClick={handleOpen} style={{width:'inherit', height: 'rem'}}>{props.nam}</Button>
       {Name  && <Modal
       open={Name}
   onClose={handleClose}
