@@ -11,14 +11,18 @@ const useSentenceFinder = () => {
         const lines = report.split('\n');
         const sentencesArr = [];
 
+        const regex = new RegExp(`(^|[^a-zA-Z])${keyword1}([^a-zA-Z]|$)`, 'i');
+
         lines.forEach(line => {
-            if (line.includes(keyword1)) {
+            if (regex.test(line)) {
                 sentencesArr.push(line);
             }
         });
 
         setSentences(sentencesArr);
     };
+
+
 
 
 
