@@ -1,24 +1,24 @@
 import Table from '../components/Table'
-import React, { useRef, useState } from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import Modal from '../components/Modal'
 import ModalOverlay from '../components/Modal'
+import useSentenceFinder from '../hooks/useSentenceFinder'
 
+const Reports = () => {
+  const [openModal, setOpenModal] = useState(false)
+  const [currentReport, setCurrentReport] = useState(null);
+  const [keywordsToFilterString, setKeywordsToFilterString] = useState('');
+  const [highlightedKeywords, setHighlightedKeywords] = useState([]);
+  const [defaultKeywords, setDefaultKeywords] = useState(['winter', 'chamber'])
 
-
-const reports = () => {
-
-    
-
-    const [openModal, setOpenModal] = useState(false)
-    const [currentReport, setCurrentReport] = useState(null);
-    const [keywordsToFilterString, setkeywordsToFilterString] = useState('');
-    const [highlightedKeywords, setHighlightedKeywords] = useState([]);
+  const { sentenses, findSentences } = useSentenceFinder()
 
   const handleOpen = (report) => {
     setCurrentReport(report)
     setOpenModal(true)
   }
+
   const handleClose = () => {
     setCurrentReport(null)
     setOpenModal(false)
@@ -26,46 +26,50 @@ const reports = () => {
 
   const handleFilterKeywords = () => {
     const filterKeywords = keywordsToFilterString.split(' ').filter(e => e !== '')
-    setHighlightedKeywords(filterKeywords)
-    
+    findSentences(currentReport.description, filterKeywords)
   }
 
+  const applyDefaultKeywords = () => {
+    findSentences(currentReport.description, defaultKeywords)
+  }
+
+  useEffect(() => { console.log(sentenses); }, [sentenses])
 
   return (
-    <Grid
-      container
-      sx={{ display: 'flex', justifyContent: 'center' }}
-      spacing={4}
-    >
-      <Grid item xs={6}>
-        {openModal ? (
-          <ModalOverlay
-            highlightedKeywords={highlightedKeywords}
-            currentReport={currentReport}
-            handleClose={handleClose}
-          ></ModalOverlay>
-        ) : (
-          <Table
-            setHighlightedKeywords={setHighlightedKeywords}
-            setCurrentReport={setCurrentReport}
-            handleOpen={handleOpen}
-          ></Table>
-        )}
+    <Grid container spacing={4}>
+      <Grid item xs={3}>
+        <Table setCurrentReport={setCurrentReport} handleOpen={handleOpen} />
       </Grid>
-      <Grid item xs={2}>
-        <TextField
-          helperText='Enter the words to be highlighted (Leave space after every word)'
-          required
-          type='text'
-          id='standard-basic'
-          label='Highlighted Words'
-          variant='standard'
-          onChange={(e) => setkeywordsToFilterString(e.target.value)}
-        />
-        <Button onClick={handleFilterKeywords}>Filter!</Button>
+      <Grid item xs={9}>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography variant="h5" sx={{ mb: 2 }}>Highlight Words:</Typography>
+            <TextField
+              helperText='Enter the words to be highlighted (Leave space after every word)'
+              required
+              type='text'
+              id='standard-basic'
+              label='Highlighted Words'
+              variant='standard'
+              onChange={(e) => setKeywordsToFilterString(e.target.value)}
+            />
+            <Button onClick={handleFilterKeywords} sx={{ ml: 1 }}>Filter</Button>
+            <Button onClick={applyDefaultKeywords} sx={{ ml: 1 }}>Default</Button>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" sx={{ mb: 2 }}>Report Text:</Typography>
+            {currentReport && <Typography sx={{ whiteSpace: 'pre-line' }}>{currentReport.description}</Typography>}
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" sx={{ mb: 2 }}>Highlighted Sentences:</Typography>
+            {sentenses.map(sentence => (
+              <Typography key={sentence} sx={{ display: 'inline-block', backgroundColor: 'yellow', px: 1, mr: 1 }}>{sentence}</Typography>
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )
 }
 
-export default reports
+export default Reports
